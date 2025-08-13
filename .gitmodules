@@ -1,0 +1,21 @@
+[submodule "include/geometry-central"]
+	path = include/geometry-central
+	url = https://github.com/nmwsharp/geometry-central.git
+[submodule "include/pmp-library"]
+	path = include/pmp-library
+	url = https://github.com/sdwagner/pmp-library.git
+[submodule "include/OpenMesh"]
+	path = include/OpenMesh
+	url = https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh.git
+[submodule "include/libigl"]
+	path = include/libigl
+	url = https://github.com/libigl/libigl.git
+[submodule "include/vcglib"]
+	path = include/vcglib
+	url = https://github.com/cnr-isti-vclab/vcglib.git
+[submodule "include/geogram"]
+	path = include/geogram
+	url = https://github.com/BrunoLevy/geogram.git
+[submodule "include/cinolib"]
+	path = include/cinolib
+	url = https://github.com/mlivesu/cinolib.git
