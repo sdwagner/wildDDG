@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #include "igl/intrinsic_delaunay_cotmatrix.h"
 #include "construct_laplace.h"
 #include "bunge_poly_laplace.h"
@@ -120,6 +125,7 @@ void setup_laplacian(Eigen::SparseMatrix<double>& L, Eigen::DiagonalMatrix<doubl
             break;
         }
     case OptimizedLaplacian_Cross_Dot:
+    case TFEM_Cross_Dot:
         {
             area_computation = CrossProduct;
             dot_sqlength = true;

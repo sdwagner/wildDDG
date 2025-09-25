@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
 
 #include <map>
@@ -64,6 +69,7 @@ enum Lib
     BungeLaplace_Heron_l2Sq = 21,
     BungeLaplace_Max_Dot = 22,
     BungeLaplace_Max_l2Sq = 23,
+    TFEM_Cross_Dot = 24,
 };
 
 enum AreaComputation
@@ -123,4 +129,5 @@ struct LaplaceConfig
     double tfem_static_constant = 1e-8;
     double tfem_dynamic_constant = 1e-3;
     bool clamp_negative = false;
+    bool clamp_zero_area = true;
 };

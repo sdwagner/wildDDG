@@ -1,4 +1,7 @@
-
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
 
 #include "util/grid_generator.h"
 #include "util/mesh_converter.h"

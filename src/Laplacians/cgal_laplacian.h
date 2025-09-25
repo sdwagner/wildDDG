@@ -1,7 +1,10 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
-//
-// Created by Sven Wagner on 26.11.24.
-//
+
 #include <CGAL/Surface_mesh/Surface_mesh.h>
 #include <CGAL/Weights/discrete_harmonic_weights.h>
 #include <CGAL/Eigen_matrix.h>

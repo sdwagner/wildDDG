@@ -19,7 +19,7 @@ set(CMAKE_POLICY_DEFAULT_CMP0074 NEW)
 
 
 # set C++ standard
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
 # PMP options
@@ -29,33 +29,38 @@ set(PMP_BUILD_TESTS    OFF CACHE BOOL "")
 set(PMP_BUILD_DOCS     OFF CACHE BOOL "")
 set(PMP_INSTALL        OFF CACHE BOOL "")
 add_definitions(-DPMP_SCALAR_TYPE_64)
+add_definitions(-DTUDO)
 add_definitions(-DINCLUDE_TEMPLATES)
 
-# Geogram Options
-set(GEOGRAM_WITH_GRAPHICS OFF CACHE BOOL "")
+if (NOT EMSCRIPTEN)
+  # Geogram Options
+  set(GEOGRAM_WITH_GRAPHICS OFF CACHE BOOL "")
 
-# Geometry-Central Options
-set(SUITESPARSE OFF CACHE BOOL "")
+  # Geometry-Central Options
+  set(SUITESPARSE OFF CACHE BOOL "")
 
-# CinoLib Options
-set(cinolib_DIR ${PROJECT_SOURCE_DIR}/include/cinolib)
-find_package(cinolib REQUIRED)
+  # CinoLib Options
+  set(cinolib_DIR ${PROJECT_SOURCE_DIR}/include/cinolib)
+  find_package(cinolib REQUIRED)
 
-set(LIBIGL_PREDICATES ON CACHE BOOL "")
+  set(LIBIGL_PREDICATES ON CACHE BOOL "")
 
-# include CGAL
-find_package(CGAL REQUIRED)
-find_package(MPFR REQUIRED)
-find_package(GMP REQUIRED)
+  # include CGAL
+  find_package(CGAL REQUIRED)
+  find_package(MPFR REQUIRED)
+  find_package(GMP REQUIRED)
+endif()
 
 
 # add include directories
 include_directories(${PROJECT_SOURCE_DIR}/include/spectra/include)
-include_directories(${CGAL_INCLUDE_DIRS})
-include_directories(${PROJECT_SOURCE_DIR}/include/libigl/include)
-include_directories(${PROJECT_SOURCE_DIR}/include/vcglib)
-include_directories(${PROJECT_SOURCE_DIR}/include/geogram/src/lib)
-include_directories(${PROJECT_SOURCE_DIR}/include/cinolib/include)
+if (NOT EMSCRIPTEN)
+  include_directories(${CGAL_INCLUDE_DIRS})
+  include_directories(${PROJECT_SOURCE_DIR}/include/libigl/include)
+  include_directories(${PROJECT_SOURCE_DIR}/include/vcglib)
+  include_directories(${PROJECT_SOURCE_DIR}/include/geogram/src/lib)
+  include_directories(${PROJECT_SOURCE_DIR}/include/cinolib/include)
+endif()
 
 
 if(WIN32)
@@ -65,6 +70,12 @@ if(WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_USE_MATH_DEFINES -DNOMINMAX -D_CRT_SECURE_NO_WARNINGS -fopenmp")
   endif()
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+endif()
+
+if (EMSCRIPTEN)
+  add_compile_options(--no-heap-copy)
+  add_link_options("SHELL:-sWASM=1 -sUSE_WEBGL2=1 -sUSE_GLFW=3 -sALLOW_MEMORY_GROWTH=1 -sALLOW_TABLE_GROWTH=1 -sSTACK_SIZE=5MB -sEXPORTED_RUNTIME_METHODS=[ccall]")
+  set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif()
 
 # make a release build by default
@@ -80,9 +91,11 @@ endif()
 
 # which directories to process
 add_subdirectory(include/pmp-library)
-add_subdirectory(include/geometry-central)
-add_subdirectory(include/OpenMesh)
-add_subdirectory(include/libigl)
-add_subdirectory(include/vcglib)
-add_subdirectory(include/geogram)
+if(NOT EMSCRIPTEN)
+  add_subdirectory(include/geometry-central)
+  add_subdirectory(include/OpenMesh)
+  add_subdirectory(include/libigl)
+  add_subdirectory(include/vcglib)
+  add_subdirectory(include/geogram)
+endif()
 add_subdirectory(src/)

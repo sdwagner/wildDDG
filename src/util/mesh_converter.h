@@ -1,7 +1,13 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
 
 #include <Eigen/Core>
 #include <pmp/surface_mesh.h>
+#ifndef __EMSCRIPTEN__
 #include <geometrycentral/surface/surface_mesh.h>
 #include <geometrycentral/surface/surface_mesh_factories.h>
 #include "../Laplacians/openmesh_laplacian.h"
@@ -9,6 +15,7 @@
 #include "../Laplacians/vcglib_laplacian.h"
 #include "geogram/mesh/mesh.h"
 #include <cinolib/meshes/trimesh.h>
+#endif
 
 #include "pmp/algorithms/differential_geometry.h"
 
@@ -64,7 +71,7 @@ inline void pmp_to_arrays(Eigen::MatrixXd& V, Eigen::MatrixXi& F, const pmp::Sur
         i++;
     }
 }
-
+#ifndef __EMSCRIPTEN__
 inline void to_gc_mesh(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F, std::unique_ptr<geometrycentral::surface::SurfaceMesh>& mesh, std::unique_ptr<geometrycentral::surface::VertexPositionGeometry>& geometry)
 {
     std::tie(mesh, geometry) = geometrycentral::surface::makeSurfaceMeshAndGeometry(V, F);
@@ -161,6 +168,7 @@ inline void to_cinolib_mesh(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F, 
     mesh.clear();
     mesh.init(verts, tris);
 }
+#endif
 
 inline void dualize(pmp::SurfaceMesh& mesh)
 {

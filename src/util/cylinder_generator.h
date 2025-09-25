@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
 #include "pmp/mat_vec.h"
 #include "marching_cubes/Grid.h"

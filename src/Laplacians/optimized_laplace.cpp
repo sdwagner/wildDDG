@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #include "optimized_laplace.h"
 #include <pmp/algorithms/laplace.h>
 
@@ -102,6 +107,8 @@ void tri_mass_matrix(const pmp::SurfaceMesh& mesh, pmp::DiagonalMatrix& M, Lapla
         auto p0 = static_cast<Eigen::Vector3d>(mesh.position(vertices[0]));
         auto p1 = static_cast<Eigen::Vector3d>(mesh.position(vertices[1]));
         auto p2 = static_cast<Eigen::Vector3d>(mesh.position(vertices[2]));
+        if (config.lib != OptimizedLaplacian_Cross_Dot_Mass)
+            config.tfem_method = TFEMNormal;
         const double area = double_triarea(p0, p1, p2, config, area_computation);
 
         M.diagonal()[vertices[0].idx()] += area / 6.0;
@@ -134,7 +141,7 @@ void triangle_laplace_matrix(const Eigen::Vector3d& p0,
     double area = double_triarea(p0, p1, p2, config, area_computation);
 
 
-    if (area > 0)
+    if (!config.clamp_zero_area || area > 0)
     {
         if (dot_sqlength)
         {

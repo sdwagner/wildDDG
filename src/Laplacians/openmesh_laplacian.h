@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
 #include "OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh"
 #include <OpenMesh/Core/Geometry/EigenVectorT.hh>
@@ -14,6 +19,7 @@ struct EigenTraits : OpenMesh::DefaultTraits {
 
 typedef OpenMesh::TriMesh_ArrayKernelT<EigenTraits>  DefaultTriMesh;
 
+// See include/OpenMesh/src/OpenMesh/Tools/Smoother/LaplaceSmootherT_impl.hh for original definition and license
 template <class Mesh>
 void openmesh_laplacian(Mesh& mesh_, Eigen::SparseMatrix<double>& L)
 {

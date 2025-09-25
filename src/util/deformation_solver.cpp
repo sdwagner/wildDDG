@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #include "deformation_solver.h"
 #include "pmp/algorithms/laplace.h"
 
@@ -14,9 +19,9 @@ void solve_deformation(pmp::SurfaceMesh& mesh, const std::function<bool(int)>& i
     Eigen::MatrixXd V = svd.matrixV();
     Eigen::DiagonalMatrix<double, Eigen::Dynamic> Sigma = svd.singularValues().asDiagonal();
     Eigen::Matrix3d R = U * V.transpose();
-    std::cout << "Rotation:\n" << R << std::endl;
+    //std::cout << "Rotation:\n" << R << std::endl;
     Eigen::Matrix3d S = V * Sigma * V.transpose();
-    std::cout << "Shearing/Scaling:\n" << S << std::endl;
+    //std::cout << "Shearing/Scaling:\n" << S << std::endl;
 
 
     Eigen::VectorXd s = 0.5 * Eigen::VectorXd::Ones(mesh.n_vertices());

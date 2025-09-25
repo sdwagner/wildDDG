@@ -1,10 +1,18 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
 
 #include <Eigen/Core>
 #include <map>
 
 #include "mesh_converter.h"
+
+#ifndef __EMSCRIPTEN__
 #include "igl/predicates/delaunay_triangulation.h"
+#endif
 
 
 inline void collapse(Eigen::MatrixXd& V, Eigen::MatrixXi& F, int from_idx, int to_idx)
@@ -516,7 +524,7 @@ inline void generate_random_array(int seed, int n, int m, Eigen::MatrixXd& rand_
         }
     }
 }
-
+#ifndef __EMSCRIPTEN__
 inline void generate_unstructured_grid(Eigen::MatrixXd& V, Eigen::MatrixXi& F, const int factor, const int seed=0)
 {
 
@@ -580,6 +588,7 @@ inline void generate_unstructured_grid(Eigen::MatrixXd& V, Eigen::MatrixXi& F, c
     V.col(2) = Eigen::VectorXd::Zero(inner_points+4*boundary_points+4+irr_points);
     igl::predicates::delaunay_triangulation(con_points, F);
 }
+#endif
 
 inline bool is_collapse_legal(const pmp::SurfaceMesh& mesh, const pmp::Vertex v, const pmp::Point& pos_after)
 {

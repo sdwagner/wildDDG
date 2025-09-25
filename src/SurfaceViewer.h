@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
 
 #include <pmp/visualization/mesh_viewer.h>
@@ -32,6 +37,7 @@ protected:
     int delaunay_factor_ = 10;
     int exp_dt = -3;
     bool polygon_marching_cubes_ = false;
-    float deformation_angle_ = M_PI_2;
+    float deformation_angle_ = 0.0f;
     bool cylinder_ = false;
+    pmp::SurfaceMesh undeformed_mesh_;
 };

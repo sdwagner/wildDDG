@@ -1,6 +1,9 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #pragma once
-// Copyright 2011-2020 the Polygon Mesh Processing Library developers.
-// Distributed under a MIT-style license, see LICENSE.txt for details.
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
@@ -10,7 +13,12 @@
 
 #include "pmp/algorithms/normals.h"
 #include "pmp/algorithms/numerics.h"
+#ifndef __EMSCRIPTEN__
 #include "../Laplacians/construct_laplace.h"
+#else
+#include "../Laplacians/optimized_laplace.h"
+#endif
+
 #include "mesh_converter.h"
 
 
@@ -18,7 +26,7 @@ namespace {
 
 using namespace pmp;
 
-
+// See include/pmp-library/src/pmp/algorithms/hole_filling.cpp for original definition and license
 void fair(SurfaceMesh& mesh, const LaplaceConfig config, unsigned int k)
 {
     // get & add properties
@@ -114,7 +122,12 @@ void fair(SurfaceMesh& mesh, const LaplaceConfig config, unsigned int k)
     // build matrix
     SparseMatrix L;
     DiagonalMatrix M;
+#ifndef __EMSCRIPTEN__
     setup_laplacian(L, M, X, F, config);
+#else
+    tri_laplace_matrix(mesh, L, config);
+    tri_mass_matrix(mesh, M, config);
+#endif
     DiagonalMatrix invM = M.inverse();
     SparseMatrix A = L;
     for (unsigned int i = 1; i < k; ++i)

@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #include "intrinsic_delaunay.h"
 
 #include <deque>
@@ -6,6 +11,7 @@
 #include "geometrycentral/surface/intrinsic_mollification.h"
 #include "geometrycentral/surface/edge_length_geometry.h"
 
+// See include/geometry-central/src/surface/intrinsic_triangulation.cpp for original definition and license
 size_t flipToDelaunay(geometrycentral::surface::SurfaceMesh& mesh, geometrycentral::surface::EdgeData<double>& edgeLengths, FlipType flipType, double delaunayEPS) {
 
   using namespace geometrycentral::surface;

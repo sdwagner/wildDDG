@@ -1,3 +1,8 @@
+// =============================================================================
+//  Copyright (c) 2025 Sven D. Wagner, Mario Botsch.
+//  Distributed under MIT license, see file LICENSE for details.
+// =============================================================================
+
 #include "geometrycentral/surface/heat_method_distance.h"
 #include "GeodesicsInHeat.h"
 #include "geodesics_solver.h"
